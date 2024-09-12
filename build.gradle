@@ -1,0 +1,91 @@
+plugins {
+    id 'java-library'
+    id 'io.qameta.allure' version '2.11.2'
+}
+
+def allureVersion = "2.27.0",
+    selenideVersion = "7.4.3",
+    junitVersion = "5.10.2",
+    slf4jVersion = "2.0.7",
+    ownerVersion = "1.0.4"
+
+allure
+        {
+            report {
+                version.set(allureVersion)
+            }
+            adapter {  // responsible for creation build/allure-results folder
+                aspectjWeaver.set(true)   // processes @Step annotation
+                frameworks {
+                    junit5 {
+                        adapterVersion.set(allureVersion)
+                    }
+                }
+            }
+        }
+
+repositories {
+    mavenCentral()
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+}
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    testImplementation(
+            "org.junit.jupiter:junit-jupiter:$junitVersion",
+            "org.slf4j:slf4j-simple:$slf4jVersion",
+            "org.slf4j:slf4j-api:$slf4jVersion",
+            "com.codeborne:selenide:$selenideVersion",
+            "io.qameta.allure:allure-selenide:$allureVersion",
+            "org.aeonbits.owner:owner:$ownerVersion"
+    )
+}
+
+tasks.withType(Test) {
+    systemProperties(System.getProperties())  // required to read properties from the command line
+    useJUnitPlatform()
+
+    systemProperties += [
+            'junit.jupiter.execution.parallel.enabled'                 : System.getProperty("parallel", "false"),
+            'junit.jupiter.execution.parallel.mode.default'            : 'concurrent',
+            'junit.jupiter.execution.parallel.mode.classes.default'    : 'concurrent',
+            'junit.jupiter.execution.parallel.config.strategy'         : 'fixed',
+            'junit.jupiter.execution.parallel.config.fixed.parallelism': System.getProperty("threads", "1").toInteger()
+    ]
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
+
+tasks.register('login', Test) {
+    useJUnitPlatform {
+        includeTags("login")
+    }
+}
+
+tasks.register('smoke', Test) {
+    useJUnitPlatform {
+        includeTags("smoke")
+    }
+}
+
+tasks.register('product', Test) {
+    useJUnitPlatform {
+        includeTags("product")
+    }
+}
+
+tasks.register('cart', Test) {
+    useJUnitPlatform {
+        includeTags("cart")
+    }
+}
