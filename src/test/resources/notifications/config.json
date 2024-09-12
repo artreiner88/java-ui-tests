@@ -1,0 +1,25 @@
+{
+  "base": {
+    "logo": "",
+    "project": "Test",
+    "environment": "",
+    "comment": "",
+    "reportLink": "",
+    "language": "en",
+    "allureFolder": "build/allure-report",
+    "enableChart": true,
+    "enableSuitesPublishing": true,
+    "durationFormat": "HH:mm:ss"
+  },
+  "slack": {
+    "token": "",
+    "chat": "allure_notifications_channel",
+    "replyTo": ""
+  },
+  "telegram": {
+    "token": "",
+    "chat": "-1002450107101",
+    "replyTo": ""
+  }
+}
+

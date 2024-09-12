@@ -1,8 +1,6 @@
 ### Properties files ###
 *.properties
 
-
-
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -10,6 +8,7 @@ build/
 !**/src/test/**/build/
 
 ### IntelliJ IDEA ###
+.idea
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
