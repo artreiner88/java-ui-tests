@@ -4,7 +4,7 @@ import org.aeonbits.owner.Config;
 
 @Config.Sources({
         "classpath:config/${env}.properties",
-        "classpath:config/dev.properties"
+        "classpath:config/local.properties"
 })
 public interface WebConfig extends Config {
 
@@ -20,10 +20,9 @@ public interface WebConfig extends Config {
     String browserSize();
 
     @Key("browser.remote")
-    Boolean isRemote();
+    Boolean remote();
 
     @Key("browser.selenoidUrl")
-    @DefaultValue("https://user1:1234@selenoid.autotests.cloud/wd/hub")
     String selenoidUrl();
 
     @Key("browser.videoStorage")

@@ -28,7 +28,7 @@ public class BaseTest {
     void tearDown() {
         step("Add attachments", () -> {
             Attachment.screenshotAs("Last screenshot");
-            if (webConfig.isRemote()) {
+            if (webConfig.remote()) {
                 Attachment.addVideo();
             }
         });

@@ -26,7 +26,7 @@ public class DriverSettings {
                 break;
         }
 
-        if (webConfig.isRemote()) {
+        if (webConfig.remote()) {
             Configuration.remote = webConfig.selenoidUrl();
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("selenoid:options", Map.<String, Object>of(
